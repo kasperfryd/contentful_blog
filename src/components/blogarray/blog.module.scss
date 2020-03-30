@@ -1,0 +1,24 @@
+.MainCard{
+    width: 55%;
+    margin: auto;
+    margin-top: 8%;
+    display:grid;
+}
+
+img{
+    width:auto;
+    width: 90%;
+    align-self: center;
+    justify-self: center;
+}
+
+.Center{
+    display:grid;
+    align-items:center;
+    justify-content: center;
+}
+
+code{
+    background-color: rgb(210,210,210);
+    padding:4px;
+}

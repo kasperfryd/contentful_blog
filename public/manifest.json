@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Contentful_Blog",
+  "name": "React Contentful Blog",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,14 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "src/components/images/logo-banner.png",
+      "type": "image/png"
     },
     {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "src/components/images/blog-256.png",
+      "type": "image/png"
     }
   ],
   "start_url": ".",
