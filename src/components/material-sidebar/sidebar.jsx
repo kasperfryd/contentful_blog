@@ -136,7 +136,7 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
         </div>
         <List>
-        <ListItem button component={"a"} onClick={handleDrawerClose} href="/react_blog" key={"Home"}>
+        <ListItem button component={"a"} onClick={handleDrawerClose} href="/contentful_blog" key={"Home"}>
               <ListItemIcon><HomeIcon /></ListItemIcon>
               <ListItemText primary={"Home"} />
         </ListItem>

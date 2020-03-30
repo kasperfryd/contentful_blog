@@ -1,6 +1,6 @@
 {
-  "short_name": "Contentful_Blog",
-  "name": "React Contentful Blog",
+  "short_name": "contentful_blog",
+  "name": "contentful_blog",
   "icons": [
     {
       "src": "favicon.ico",
