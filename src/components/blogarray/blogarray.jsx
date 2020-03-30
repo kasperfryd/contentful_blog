@@ -8,9 +8,10 @@ import BlogStyle from './blog.module.scss';
 function CreateBlogArray(props) {
 
 const [blogArray, setBlogArray] = useState([]);
+const [firstStart, setFirstStart] = useState(true);
 
 useEffect(() => {
-    updateArray()
+    //updateArray()
 }, [])
 
 window.onscroll = function(ev) {
@@ -52,7 +53,8 @@ window.onscroll = function(ev) {
     
     let blogArrayTemp = [];
     
-    if (props.apiData) {
+    if (props.apiData && props.apiData.items) {
+        console.log(props.apiData)
         const blogs = props.apiData.items;        
         blogs.map((fields => {
             let title = fields.fields.title;
@@ -75,7 +77,13 @@ window.onscroll = function(ev) {
                 </Card>
             )
         }
-        )) 
+
+        ))
+        console.log(firstStart);
+        if (firstStart === true){
+            updateArray();
+            setFirstStart(false);
+        } 
     }
 
     if (props.selected === true){

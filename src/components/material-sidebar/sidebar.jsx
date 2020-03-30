@@ -10,7 +10,7 @@ import AnnouncementIcon from '@material-ui/icons/Announcement';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import FullScreenDialog from '../material-dialog/dialog';
 
-import banner from '../images/blog-banner.png';
+import banner from '../images/banner.png';
 const drawerWidth = 260;
 
 const useStyles = makeStyles(theme => ({
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   logo: {
-    width: "17.9rem",
+    width: "13.05rem",
     height: "auto",
     position: "fixed",
     right: "0",

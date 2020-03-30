@@ -21,10 +21,13 @@ function App() {
   const token = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
-    getLatestTopPosts(id);
-    FetchContent(id, 0)
-    refreshContent();
+    startUp();
   }, [])
+  
+  const startUp = () => {
+    getLatestTopPosts(id);
+    FetchContent(id);
+  }
   
   // Create fetch with contentful client.
   const FetchContent = async (id, skipCount, selected) => {  
@@ -44,6 +47,9 @@ function App() {
     }
 
     else{
+      if (skipCount == undefined){
+        skipCount = 0;
+      }
       client.getEntries({
         content_type: 'blog',
         skip: skipCount.toString(),
@@ -98,13 +104,14 @@ function App() {
       console.log("Fetching new content and updating")
       FetchContent(id, arrCount);
       setArrCount(arrCount+5);
+    
   }
   
   // If apidata is present, create react component from rich text
   if (apiData && topData) {
     return ( 
       <>
-    <CreateBlogArray selected={selected} apiData={apiData} refreshContent={refreshContent}/>
+    <CreateBlogArray setArrCount={setArrCount} selected={selected} apiData={apiData} refreshContent={refreshContent}/>
     <SideBar setSelected={setSelected} getAllData={getAllData} allArray={allData} top={topData} showSelected={showSelected}></SideBar>
     </>
       )
