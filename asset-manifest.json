@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/contenful_blog/static/css/main.86013334.chunk.css",
+    "main.js": "/contenful_blog/static/js/main.856d0de0.chunk.js",
+    "main.js.map": "/contenful_blog/static/js/main.856d0de0.chunk.js.map",
+    "runtime-main.js": "/contenful_blog/static/js/runtime-main.24127544.js",
+    "runtime-main.js.map": "/contenful_blog/static/js/runtime-main.24127544.js.map",
+    "static/js/2.9baecf03.chunk.js": "/contenful_blog/static/js/2.9baecf03.chunk.js",
+    "static/js/2.9baecf03.chunk.js.map": "/contenful_blog/static/js/2.9baecf03.chunk.js.map",
+    "index.html": "/contenful_blog/index.html",
+    "precache-manifest.576d535cff99e2fabe4d88b2a939304b.js": "/contenful_blog/precache-manifest.576d535cff99e2fabe4d88b2a939304b.js",
+    "service-worker.js": "/contenful_blog/service-worker.js",
+    "static/css/main.86013334.chunk.css.map": "/contenful_blog/static/css/main.86013334.chunk.css.map",
+    "static/js/2.9baecf03.chunk.js.LICENSE.txt": "/contenful_blog/static/js/2.9baecf03.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.24127544.js",
+    "static/js/2.9baecf03.chunk.js",
+    "static/css/main.86013334.chunk.css",
+    "static/js/main.856d0de0.chunk.js"
+  ]
+}

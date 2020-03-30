@@ -1,0 +1,23 @@
+{
+  "short_name": "Contentful_Blog",
+  "name": "React Contentful Blog",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "src/components/images/logo-banner.png",
+      "type": "image/png"
+    },
+    {
+      "src": "src/components/images/blog-256.png",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
