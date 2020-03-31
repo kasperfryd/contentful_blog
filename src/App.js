@@ -1,12 +1,10 @@
-import React, {
-  useState,
-  useEffect
-} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import {Box} from '@material-ui/core';
 import CreateBlogArray from './components/blogarray/blogarray';
 import SideBar from './components/material-sidebar/sidebar';
 import Spinner from './components/material-spinner/spinner';
+
 function App() {
 
   const contentful = require('contentful')
@@ -19,22 +17,18 @@ function App() {
   // set up search queries.
   const id = "entries";
   const token = process.env.REACT_APP_API_KEY;
+  const client = contentful.createClient({
+    space: 'ahavbgs7z0ax',
+    accessToken: token
+  })
 
   useEffect(() => {
-    startUp();
+    getLatestTopPosts(id, client);
+    FetchContent(id,client, 0);
   }, [])
-  
-  const startUp = () => {
-    getLatestTopPosts(id);
-    FetchContent(id);
-  }
-  
+    
   // Create fetch with contentful client.
-  const FetchContent = async (id, skipCount, selected) => {  
-    const client = contentful.createClient({
-      space: 'ahavbgs7z0ax',
-      accessToken: token
-    })
+  const FetchContent = async (id, client, skipCount, selected) => {  
     
     if (selected){
       client.getEntries({
@@ -47,9 +41,6 @@ function App() {
     }
 
     else{
-      if (skipCount == undefined){
-        skipCount = 0;
-      }
       client.getEntries({
         content_type: 'blog',
         skip: skipCount.toString(),
@@ -60,12 +51,7 @@ function App() {
     }
   }
   
-  const getLatestTopPosts = async (id) => {
-    const client = contentful.createClient({
-      space: 'ahavbgs7z0ax',
-      accessToken: token
-    })
-
+  const getLatestTopPosts = async (id, client ) => {
     client.getEntries({
       content_type: 'blog',
       limit:"5",
@@ -74,18 +60,17 @@ function App() {
     .catch(console.error)
   }
 
-  const getAllData = async (id) => {
-    const client = contentful.createClient({
-      space: 'ahavbgs7z0ax',
-      accessToken: token
-    })
-
+  const getListData = async (id, client) => {
     client.getEntries({
       content_type: 'blog',
       limit:"100",
     })
     .then((response) => setAllData(response))
     .catch(console.error)
+  }
+
+  const getAllData = () => {
+    getListData(id, client);
   }
   
   const showSelected = (selected_name) => {
@@ -95,14 +80,14 @@ function App() {
       behavior: 'smooth',
     }
 
-    FetchContent(id, undefined, selected_name.toString());
     window.scrollTo(scrollOptions);  
+    FetchContent(id, client, 0, selected_name.toString());
     setSelected(true);
   }
   
-    const refreshContent = async () => {
+  const refreshContent = async () => {
       console.log("Fetching new content and updating")
-      FetchContent(id, arrCount);
+      FetchContent(id, client, arrCount);
       setArrCount(arrCount+5);
     
   }
