@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core/';
+import {Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText} from '@material-ui/core/';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -77,8 +77,8 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 0,
   },
 
-  blogPosts: {
-    marginLeft: "8px"
+  blogPosts:{
+      marginLeft: "8px"
   }
 }));
 
@@ -118,7 +118,7 @@ export default function PersistentDrawerLeft(props) {
           <Typography variant="h6" noWrap>
             My Personal Blog
           </Typography>
-          <img src={banner} alt="logo" className={classes.logo} />
+        <img src={banner} alt="logo" className={classes.logo} />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -136,28 +136,28 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
         </div>
         <List>
-          <ListItem button component={"a"} onClick={handleDrawerClose} href="/contentful_blog" key={"Home"}>
-            <ListItemIcon><HomeIcon /></ListItemIcon>
-            <ListItemText primary={"Home"} />
-          </ListItem>
+        <ListItem button component={"a"} onClick={handleDrawerClose} href="/contentful_blog" key={"Home"}>
+              <ListItemIcon><HomeIcon /></ListItemIcon>
+              <ListItemText primary={"Home"} />
+        </ListItem>
 
-          <Divider />
-          <ListItem key={"Latest_Posts"}>
-            <ListItemIcon><AnnouncementIcon /></ListItemIcon>
-            <ListItemText primary={"Latest Posts"} />
-          </ListItem>
-
-          {props.top.items.map((item, index) =>
-            <ListItem onClick={() => { props.showSelected(item.fields.title); handleDrawerClose() }} button key={index}>
-              <ListItemText className={classes.blogPosts} primary={item.fields.title}></ListItemText>
+        <Divider />
+            <ListItem key={"Latest_Posts"}>
+              <ListItemIcon><AnnouncementIcon /></ListItemIcon>
+              <ListItemText primary={"Latest Posts"} />
             </ListItem>
-          )}
-          <Divider />
-          <FullScreenDialog close={handleDrawerClose} showSelected={props.showSelected} getAllData={props.getAllData} array={props.allArray} />
-          <ListItem button component={"a"} href="https://be.contentful.com/login" key={"New_Post"}>
-            <ListItemIcon><AddCommentIcon /></ListItemIcon>
-            <ListItemText primary={"New Post"} />
-          </ListItem>
+
+            {props.top.items.map((item, index) =>
+            <ListItem onClick={() => {props.showSelected(item.fields.title); handleDrawerClose()}} button key={index}>
+                <ListItemText className={classes.blogPosts} primary={item.fields.title}></ListItemText>
+            </ListItem>
+            )}
+        <Divider />
+        <FullScreenDialog close={handleDrawerClose} showSelected={props.showSelected} getAllData = {props.getAllData} array={props.allArray} />
+        <ListItem button component={"a"} href="https://be.contentful.com/login" key={"New_Post"}>
+          <ListItemIcon><AddCommentIcon /></ListItemIcon>
+          <ListItemText primary={"New Post"} />
+        </ListItem>
 
         </List>
       </Drawer>

@@ -15,6 +15,8 @@
     "node-sass": "^4.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-image-appear": "^1.2.23",
+    "react-lazy-load-image-component": "^1.4.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "use-state-with-callback": "^1.0.18"

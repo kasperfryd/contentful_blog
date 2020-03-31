@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { Card, CardContent, CardHeader } from '@material-ui/core';
@@ -16,42 +16,40 @@ function CreateBlogArray(props) {
                 console.log(props.selected)
                 props.refreshContent();
                 updateArray();
-                setFirstStart(false);
             }
         };
     }
-
     const options = {
         renderNode: {
 
             [BLOCKS.EMBEDDED_ENTRY]: ({ data: { target: { fields } } }) =>
-                <div className={BlogStyle.Center}>
-                    <img src={fields.file.url} alt={"Something"} />
+                <div className={BlogStyle.Center}>{
+                    <img src={fields.file.url} alt={"Something"} />}
                 </div>,
             [INLINES.EMBEDDED_ENTRY]: ({ data: { target: { fields } } }) =>
-                <div className={BlogStyle.Center}>
-                    <img src={fields.file.url} alt={"Something"} />
+                <div className={BlogStyle.Center}>{
+                    <img src={fields.file.url} alt={"Something"} />}
                 </div>,
             [BLOCKS.EMBEDDED_ASSET]: ({ data: { target: { fields } } }) =>
-                <div className={BlogStyle.Center}>
-                    <img src={fields.file.url} alt={"Something"} />
+                <div className={BlogStyle.Center}>{
+                    <img src={fields.file.url} alt={"Something"} />}
                 </div>,
             [INLINES.EMBEDDED_ASSET]: ({ data: { target: { fields } } }) =>
-                <div className={BlogStyle.Center}>
-                    <img src={fields.file.url} alt={"Something"} />
+                <div className={BlogStyle.Center}>{
+                    <img src={fields.file.url} alt={"Something"} />}
                 </div>,
         }
     };
 
-    const updateArray = () => {
+    const updateArray = async () => {
         console.log("Updating array")
+        setFirstStart(false);
         setBlogArray([...blogArray, blogArrayTemp])
     }
 
     let blogArrayTemp = [];
 
     if (props.apiData && props.apiData.items) {
-        //console.log(props.apiData)
         const blogs = props.apiData.items;
         blogs.map((fields => {
             let title = fields.fields.title;
@@ -97,7 +95,7 @@ function CreateBlogArray(props) {
         return (
             <>
                 {blogArray}
-                <Footer></Footer>
+                {!props.contentMsg ? <Footer></Footer> : <Footer contentMsg={props.contentMsg}></Footer>}
             </>
         )
     }

@@ -1,18 +1,30 @@
-import React, {useState, useEffect} from 'react';
+import React, {
+  useState,
+  useEffect
+} from 'react';
 import './App.css';
 import {Box} from '@material-ui/core';
 import CreateBlogArray from './components/blogarray/blogarray';
 import SideBar from './components/material-sidebar/sidebar';
 import Spinner from './components/material-spinner/spinner';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import IconButton from '@material-ui/core/IconButton';
 
 function App() {
 
   const contentful = require('contentful')
   const [apiData, setApiData] = useState()
-  const [arrCount, setArrCount] = useState(5);
+  const [arrCount, setArrCount] = useState(0);
   const [topData, setTopData] = useState();
   const [selected, setSelected] = useState(false);
   const [allData, setAllData] = useState();
+  const [contentMsg, setContentMsg] = useState()
+
+  const scrollOptions = {
+    left: 0,
+    top: 0,
+    behavior: 'smooth',
+  }
   
   // set up search queries.
   const id = "entries";
@@ -24,11 +36,11 @@ function App() {
 
   useEffect(() => {
     getLatestTopPosts(id, client);
-    FetchContent(id,client, 0);
+    fetchContent(id, client, arrCount);
   }, [])
     
   // Create fetch with contentful client.
-  const FetchContent = async (id, client, skipCount, selected) => {  
+  const fetchContent = async (id, client, skipCount, selected) => {  
     
     if (selected){
       client.getEntries({
@@ -47,6 +59,7 @@ function App() {
         limit:"5",
       })
       .then((response) => setApiData(response))
+      .then(() => setArrCount(arrCount+5))
       .catch(console.error)
     }
   }
@@ -60,7 +73,7 @@ function App() {
     .catch(console.error)
   }
 
-  const getListData = async (id, client) => {
+  const fetchAllData = async (id, client) => {
     client.getEntries({
       content_type: 'blog',
       limit:"100",
@@ -68,37 +81,40 @@ function App() {
     .then((response) => setAllData(response))
     .catch(console.error)
   }
-
-  const getAllData = () => {
-    getListData(id, client);
-  }
   
   const showSelected = (selected_name) => {
-    const scrollOptions = {
-      left: 0,
-      top: 0,
-      behavior: 'smooth',
-    }
-
+    fetchContent(id, client, 0, selected_name.toString());
     window.scrollTo(scrollOptions);  
-    FetchContent(id, client, 0, selected_name.toString());
     setSelected(true);
   }
+
+  const getAllData = async () => {
+      fetchAllData(id, client)
+  } 
   
-  const refreshContent = async () => {
+    const refreshContent = async () => {
       console.log("Fetching new content and updating")
-      FetchContent(id, client, arrCount);
-      setArrCount(arrCount+5);
-    
+      fetchContent(id, client, arrCount);    
+  }
+
+  const goBacktoTop = () => {
+    window.scrollTo(scrollOptions);  
   }
   
   // If apidata is present, create react component from rich text
   if (apiData && topData) {
+    console.log(apiData)
+      if (apiData.items.length === 0){
+        console.log("no more new content")
+        if (!contentMsg){
+            setContentMsg(<IconButton children={<ArrowUpwardIcon />} onClick={() => goBacktoTop()}></IconButton>)
+        }
+      }
     return ( 
       <>
-    <CreateBlogArray setArrCount={setArrCount} selected={selected} apiData={apiData} refreshContent={refreshContent}/>
-    <SideBar setSelected={setSelected} getAllData={getAllData} allArray={allData} top={topData} showSelected={showSelected}></SideBar>
-    </>
+      <CreateBlogArray contentMsg={contentMsg} selected={selected} apiData={apiData} refreshContent={refreshContent}/>
+      <SideBar setSelected={setSelected} getAllData={getAllData} allArray={allData} top={topData} showSelected={showSelected}></SideBar>
+      </>
       )
     }
 
@@ -106,8 +122,7 @@ function App() {
     else {
     return ( 
       <>
-         <Box display="flex" height="100vh" justifyContent="center" alignItems="center" children={<Spinner children={<div>Loading..</div>}></Spinner>}>
-          </Box>
+         <Box display="flex" height="100vh" justifyContent="center" alignItems="center" children={<Spinner children={<div>Loading..</div>}></Spinner>}></Box>
       </>
       )
     }
