@@ -4,6 +4,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { Card, CardContent, CardHeader } from '@material-ui/core';
 import Footer from '../footer/footer';
 import BlogStyle from './blog.module.scss';
+import { useInView } from 'react-intersection-observer'
 import { InView } from 'react-intersection-observer'
 
 
@@ -64,27 +65,27 @@ function CreateBlogArray(props) {
             let id2 = Math.random();
             blogArrayTemp.push(
 
-                <InView key={id1} threshold="0.5">
-                    {({ inView, ref, entry }) => (
-                        <Card key={id2} ref={ref} className={BlogStyle.MainCard}>
-                            <CardHeader title={<h1>{title}</h1>}>
-                                {inView && props.setTitle(title)}
-                            </CardHeader>
-                            <CardContent id={title} children={
-                                <>
-                                    {documentToReactComponents(data, options)}
-                                    <p>Author: {author}</p>
-                                    <p>Posted on: {date}</p>
-                                </>
-                            }>
-                            </CardContent>
-                        </Card>)}
+                <InView key={id1} threshold="0.3">
+                {({ inView, ref, entry }) => (
+                <Card key={id2} ref={ref} className={BlogStyle.MainCard}>
+                    <CardHeader title={<h1>{title}</h1>}>
+                    {inView && props.setTitle(title)}
+                    </CardHeader>
+                    <CardContent id={title} children={
+                        <>
+                            {documentToReactComponents(data, options)}
+                            <p>Author: {author}</p>
+                            <p>Posted on: {date}</p>
+                        </>
+                    }>
+                    </CardContent>
+                </Card>)}
                 </InView>
             )
         }
 
         ))
-
+        
         if (firstStart === true) {
             return (
                 <>

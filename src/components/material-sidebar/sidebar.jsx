@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core/';
+import {Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText} from '@material-ui/core/';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -83,8 +83,8 @@ const useStyles = makeStyles(theme => ({
     }),
     marginLeft: 0,
   },
-  blogPosts: {
-    marginLeft: "8px"
+  blogPosts:{
+      marginLeft: "8px"
   }
 }));
 
@@ -105,72 +105,72 @@ export default function PersistentDrawerLeft(props) {
   return (
     <div className={classes.root}>
       <ThemeProvider theme={mainTheme}>
-        <CssBaseline />
-        <AppBar
-          color="secondary"
-          position="fixed"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: open,
-          })}
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              //aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
-            >
-              <MenuIcon />
-            </IconButton>
+      <CssBaseline />
+      <AppBar
+        color="secondary"
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            //aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            className={clsx(classes.menuButton, open && classes.hide)}
+          >
+            <MenuIcon />
+          </IconButton>
 
-            <Typography className={!open ? Styles.nowReading : Styles.hidden}>
-              {props.currentTitle}
-            </Typography>
-
-            <img src={banner} alt="logo" className={Styles.logo} />
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="left"
-          open={open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-            </IconButton>
-          </div>
-          <List>
-            <ListItem button component={"a"} onClick={handleDrawerClose} href="/contentful_blog" key={"Home"}>
+          <Typography className={!open ? Styles.nowReading: Styles.hidden}>
+        {props.currentTitle}
+          </Typography>
+   
+        <img src={banner} alt="logo" className={Styles.logo} />
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="left"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </div>
+        <List>
+        <ListItem button component={"a"} onClick={handleDrawerClose} href="/contentful_blog" key={"Home"}>
               <ListItemIcon ><HomeIcon color="primary" /></ListItemIcon>
               <ListItemText primary={"Home"} />
-            </ListItem>
+        </ListItem>
 
-            <Divider />
+        <Divider />
             <ListItem key={"Latest_Posts"}>
               <ListItemIcon><AnnouncementIcon color="primary" /></ListItemIcon>
               <ListItemText primary={"Latest Posts"} />
             </ListItem>
 
             {props.top.items.map((item, index) =>
-              <ListItem onClick={() => { props.showSelected(item.fields.title); handleDrawerClose() }} button key={index}>
+            <ListItem onClick={() => {props.showSelected(item.fields.title); handleDrawerClose()}} button key={index}>
                 <ListItemText className={classes.blogPosts} primary={item.fields.title}></ListItemText>
-              </ListItem>
-            )}
-            <Divider />
-            <FullScreenDialog close={handleDrawerClose} showSelected={props.showSelected} getAllData={props.getAllData} array={props.allArray} />
-            <ListItem button component={"a"} href="https://be.contentful.com/login" key={"New_Post"}>
-              <ListItemIcon ><AddCommentIcon color="primary" /></ListItemIcon>
-              <ListItemText primary={"New Post"} />
             </ListItem>
+            )}
+        <Divider />
+        <FullScreenDialog close={handleDrawerClose} showSelected={props.showSelected} getAllData = {props.getAllData} array={props.allArray} />
+        <ListItem button component={"a"} href="https://be.contentful.com/login" key={"New_Post"}>
+          <ListItemIcon ><AddCommentIcon color="primary" /></ListItemIcon>
+          <ListItemText primary={"New Post"} />
+        </ListItem>
 
-          </List>
-        </Drawer>
+        </List>
+      </Drawer>
       </ThemeProvider>
     </div>
   );
