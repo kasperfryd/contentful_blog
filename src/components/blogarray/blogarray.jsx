@@ -45,9 +45,7 @@ function CreateBlogArray(props) {
     };
 
     const setCurrentTitle = (title) => {
-        setTimeout(() => {
             props.setTitle(title)
-        }, 500);
     }
 
     const updateArray = async () => {
