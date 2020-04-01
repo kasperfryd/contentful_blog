@@ -19,7 +19,7 @@ function App() {
   const [selected, setSelected] = useState(false);
   const [allData, setAllData] = useState();
   const [contentMsg, setContentMsg] = useState()
-  const [currentTitle, setTitle] = useState();
+  const [currentTitle, setCurrentTitle] = useState();
 
 
   const scrollOptions = {
@@ -102,10 +102,13 @@ function App() {
   const goBacktoTop = () => {
     window.scrollTo(scrollOptions);  
   }
+
+  const setTitle = (title) => {
+    setCurrentTitle(title);
+  }
   
   // If apidata is present, create react component from rich text
   if (apiData && topData) {
-    console.log(apiData)
       if (apiData.items.length === 0){
         console.log("no more new content")
         if (!contentMsg){
