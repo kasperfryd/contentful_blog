@@ -14,11 +14,11 @@
   * Create a new file called `.env`
   * Inside `.env` type: 
     ```  
-    REACT_APP_API_KEY=YOUR API KEY
-    REACT_APP_SPACE=YOUR SPACE NAME
-    REACT_CONTENT=YOUR CONTENT TYPE 
+    REACT_APP_API_KEY=YOUR CONTENTFUL API KEY
+    REACT_APP_SPACE=YOUR CONTENFUL SPACE NAME
+    REACT_CONTENT=YOUR CONTENTFUL CONTENT TYPE
     ```
-  * Open the project in a terminal and type: 
+  * Save the file then open the project folder in a terminal and type: 
     * `npm install`
     * `npm start`
 
