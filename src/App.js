@@ -29,8 +29,11 @@ function App() {
   // set up search queries.
   const id = "entries";
   const token = process.env.REACT_APP_API_KEY;
+  const space = process.env.REACT_APP_SPACE;
+  const content = process.env.REACT_APP_CONTENT;
+
   const client = contentful.createClient({
-    space: 'ahavbgs7z0ax',
+    space: space,
     accessToken: token
   })
 
@@ -43,11 +46,11 @@ function App() {
   // create fetch with contentful client. 
   // if selected is present, only fetch the selected value
   // else fetch 5 results with skip as a parameter
-  const fetchContent = async (id, client, skipCount, selected) => {  
+  const fetchContent = async (id, client, skipCount, selected, content) => {  
     
     if (selected){
       client.getEntries({
-        content_type: 'blog',
+        content_type: content,
         query: selected,
         limit:"1"
       })
@@ -57,7 +60,7 @@ function App() {
 
     else{
       client.getEntries({
-        content_type: 'blog',
+        content_type: content,
         skip: skipCount.toString(),
         limit:"5",
       })
@@ -70,7 +73,7 @@ function App() {
   // fetch to get the last 5 entries and only those 5.
   const getLatestTopPosts = async (id, client ) => {
     client.getEntries({
-      content_type: 'blog',
+      content_type: content,
       limit:"5",
     })
     .then((response) => setTopData(response))
@@ -80,7 +83,7 @@ function App() {
   // fetch to get the last 100 entries for display in all list
   const fetchAllData = async (id, client) => {
     client.getEntries({
-      content_type: 'blog',
+      content_type: content,
       limit:"100",
     })
     .then((response) => setAllData(response))
