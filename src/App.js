@@ -19,6 +19,8 @@ function App() {
   const [selected, setSelected] = useState(false);
   const [allData, setAllData] = useState();
   const [contentMsg, setContentMsg] = useState()
+  const [currentTitle, setTitle] = useState();
+
 
   const scrollOptions = {
     left: 0,
@@ -112,8 +114,8 @@ function App() {
       }
     return ( 
       <>
-      <CreateBlogArray contentMsg={contentMsg} selected={selected} apiData={apiData} refreshContent={refreshContent}/>
-      <SideBar setSelected={setSelected} getAllData={getAllData} allArray={allData} top={topData} showSelected={showSelected}></SideBar>
+      <CreateBlogArray currentTitle={currentTitle} setTitle={setTitle} contentMsg={contentMsg} selected={selected} apiData={apiData} refreshContent={refreshContent}/>
+      <SideBar currentTitle={currentTitle} setSelected={setSelected} getAllData={getAllData} allArray={allData} top={topData} showSelected={showSelected}></SideBar>
       </>
       )
     }

@@ -33,7 +33,7 @@ export default function FullScreenDialog(props) {
   return (
     <div>
       <ListItem button key={"All_Posts"} onClick={() => { handleClickOpen(); props.getAllData() }}>
-        <ListItemIcon><InfoIcon /></ListItemIcon>
+        <ListItemIcon><InfoIcon color="primary"/></ListItemIcon>
         <ListItemText primary={"All Posts"} />
       </ListItem>
       <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
+import { createMuiTheme } from '@material-ui/core/styles';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText} from '@material-ui/core/';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -9,9 +10,22 @@ import HomeIcon from '@material-ui/icons/Home'
 import AnnouncementIcon from '@material-ui/icons/Announcement';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import FullScreenDialog from '../material-dialog/dialog';
+import red from '@material-ui/core/colors/red';
+import { ThemeProvider } from '@material-ui/core/styles';
+import Styles from './sidebar.module.scss';
 
-import banner from '../images/banner.png';
+import banner from '../images/bannertextreversed.png';
 const drawerWidth = 260;
+
+
+const mainTheme = createMuiTheme({
+  palette: {
+    primary: red,
+    secondary: {
+      main: '#ffffff',
+    },
+  }
+});
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,10 +47,12 @@ const useStyles = makeStyles(theme => ({
   },
 
   logo: {
-    width: "13.05rem",
+    width: "7rem",
     height: "auto",
     position: "fixed",
     right: "0",
+    marginRight: "5%",
+    alignSelf: "center",
   },
 
   menuButton: {
@@ -76,7 +92,6 @@ const useStyles = makeStyles(theme => ({
     }),
     marginLeft: 0,
   },
-
   blogPosts:{
       marginLeft: "8px"
   }
@@ -98,8 +113,10 @@ export default function PersistentDrawerLeft(props) {
 
   return (
     <div className={classes.root}>
+      <ThemeProvider theme={mainTheme}>
       <CssBaseline />
       <AppBar
+        color="secondary"
         position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
@@ -115,9 +132,11 @@ export default function PersistentDrawerLeft(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            My Personal Blog
+
+          <Typography className={Styles.nowReading}>
+            Now reading: {props.currentTitle}
           </Typography>
+   
         <img src={banner} alt="logo" className={classes.logo} />
         </Toolbar>
       </AppBar>
@@ -137,13 +156,13 @@ export default function PersistentDrawerLeft(props) {
         </div>
         <List>
         <ListItem button component={"a"} onClick={handleDrawerClose} href="/contentful_blog" key={"Home"}>
-              <ListItemIcon><HomeIcon /></ListItemIcon>
+              <ListItemIcon ><HomeIcon color="primary" /></ListItemIcon>
               <ListItemText primary={"Home"} />
         </ListItem>
 
         <Divider />
             <ListItem key={"Latest_Posts"}>
-              <ListItemIcon><AnnouncementIcon /></ListItemIcon>
+              <ListItemIcon><AnnouncementIcon color="primary" /></ListItemIcon>
               <ListItemText primary={"Latest Posts"} />
             </ListItem>
 
@@ -155,12 +174,13 @@ export default function PersistentDrawerLeft(props) {
         <Divider />
         <FullScreenDialog close={handleDrawerClose} showSelected={props.showSelected} getAllData = {props.getAllData} array={props.allArray} />
         <ListItem button component={"a"} href="https://be.contentful.com/login" key={"New_Post"}>
-          <ListItemIcon><AddCommentIcon /></ListItemIcon>
+          <ListItemIcon ><AddCommentIcon color="primary" /></ListItemIcon>
           <ListItemText primary={"New Post"} />
         </ListItem>
 
         </List>
       </Drawer>
+      </ThemeProvider>
     </div>
   );
 }
