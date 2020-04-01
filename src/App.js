@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  useEffect
-} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import {Box} from '@material-ui/core';
 import CreateBlogArray from './components/blogarray/blogarray';
@@ -12,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 function App() {
 
+  // initialize main states
   const contentful = require('contentful')
   const [apiData, setApiData] = useState()
   const [arrCount, setArrCount] = useState(0);
@@ -21,7 +19,7 @@ function App() {
   const [contentMsg, setContentMsg] = useState()
   const [currentTitle, setCurrentTitle] = useState();
 
-
+// set options for scroll behaviour
   const scrollOptions = {
     left: 0,
     top: 0,
@@ -36,12 +34,15 @@ function App() {
     accessToken: token
   })
 
+  // first start hook
   useEffect(() => {
     getLatestTopPosts(id, client);
     fetchContent(id, client, arrCount);
   }, [])
     
-  // Create fetch with contentful client.
+  // create fetch with contentful client. 
+  // if selected is present, only fetch the selected value
+  // else fetch 5 results with skip as a parameter
   const fetchContent = async (id, client, skipCount, selected) => {  
     
     if (selected){
@@ -66,6 +67,7 @@ function App() {
     }
   }
   
+  // fetch to get the last 5 entries and only those 5.
   const getLatestTopPosts = async (id, client ) => {
     client.getEntries({
       content_type: 'blog',
@@ -75,6 +77,7 @@ function App() {
     .catch(console.error)
   }
 
+  // fetch to get the last 100 entries for display in all list
   const fetchAllData = async (id, client) => {
     client.getEntries({
       content_type: 'blog',
@@ -84,37 +87,43 @@ function App() {
     .catch(console.error)
   }
   
+  // function to fetch selected blog entry, scroll to top, and set selected to true
   const showSelected = (selected_name) => {
     fetchContent(id, client, 0, selected_name.toString());
     window.scrollTo(scrollOptions);  
     setSelected(true);
   }
 
+  // async function to fetch all articles once user opens menu
   const getAllData = async () => {
       fetchAllData(id, client)
   } 
   
-    const refreshContent = async () => {
+  // async function to refresh content and fetch new stuff when user reaches the bottom
+  const refreshContent = async () => {
       console.log("Fetching new content and updating")
       fetchContent(id, client, arrCount);    
   }
 
+  // function to scroll to top
   const goBacktoTop = () => {
     window.scrollTo(scrollOptions);  
   }
 
+  // function to set current "inView" title
   const setTitle = (title) => {
     setCurrentTitle(title);
   }
   
-  // If apidata is present, create react component from rich text
+  // if apidata is present, and apidata is 0, and contentMsg is not set, (no more new content)
+  // then change spinner to upward arrow (go back to top) 
   if (apiData && topData) {
       if (apiData.items.length === 0){
-        console.log("no more new content")
         if (!contentMsg){
             setContentMsg(<IconButton children={<ArrowUpwardIcon />} onClick={() => goBacktoTop()}></IconButton>)
         }
       }
+      // return main content (all blogs 5 at a time, and a sidebar)
     return ( 
       <>
       <CreateBlogArray currentTitle={currentTitle} setTitle={setTitle} contentMsg={contentMsg} selected={selected} apiData={apiData} refreshContent={refreshContent}/>

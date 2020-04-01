@@ -4,74 +4,82 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { Card, CardContent, CardHeader } from '@material-ui/core';
 import Footer from '../footer/footer';
 import BlogStyle from './blog.module.scss';
-import { useInView } from 'react-intersection-observer'
 import { InView } from 'react-intersection-observer'
 
 
 function CreateBlogArray(props) {
 
+    // set needed states
     const [blogArray, setBlogArray] = useState([]);
     const [firstStart, setFirstStart] = useState(true);
 
+    // set window on scroll event to listen for when the user reaches the bottom,
+    // then refresh content by fetching 5 new articles and updating the current array
     window.onscroll = function (ev) {
         if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
             if (props.selected === false) {
-                console.log(props.selected)
                 props.refreshContent();
                 updateArray();
             }
         };
     }
+    // Set options for documentToReactComponents method
+    // if there is an embedded entry or asset create a new image with the src of the current img
     const options = {
         renderNode: {
 
             [BLOCKS.EMBEDDED_ENTRY]: ({ data: { target: { fields } } }) =>
                 <div className={BlogStyle.Center}>{
-                    <img src={fields.file.url} alt={"Something"} />}
+                    <img src={fields.file.url} alt={fields.title} />}
                 </div>,
             [INLINES.EMBEDDED_ENTRY]: ({ data: { target: { fields } } }) =>
                 <div className={BlogStyle.Center}>{
-                    <img src={fields.file.url} alt={"Something"} />}
+                    <img src={fields.file.url} alt={fields.title} />}
                 </div>,
             [BLOCKS.EMBEDDED_ASSET]: ({ data: { target: { fields } } }) =>
                 <div className={BlogStyle.Center}>{
-                    <img src={fields.file.url} alt={"Something"} />}
+                    <img src={fields.file.url} alt={fields.title} />}
                 </div>,
             [INLINES.EMBEDDED_ASSET]: ({ data: { target: { fields } } }) =>
                 <div className={BlogStyle.Center}>{
-                    <img src={fields.file.url} alt={"Something"} />}
+                    <img src={fields.file.url} alt={fields.title} />}
                 </div>,
         }
     };
 
+    // function to update array by using spread operator on temp array and blogArray.
     const updateArray = async () => {
         console.log("Updating array")
         setFirstStart(false);
         setBlogArray([...blogArray, blogArrayTemp])
     }
 
-
-
+    // initialize empty array
     let blogArrayTemp = [];
 
+    //if apidata is set, create a blogarray of cards with the content from the blog entries. 
     if (props.apiData && props.apiData.items) {
         const blogs = props.apiData.items;
         blogs.map((fields => {
+            // Set all needed variables to be fed into material ui card
             let title = fields.fields.title;
             let data = fields.fields.blog;
             let author = fields.fields.author;
             let date = fields.fields.date;
             let id1 = Math.random();
             let id2 = Math.random();
+            // push the card into the temporary array
             blogArrayTemp.push(
-
+                //create inview ref which wraps the object and sends a callback when card enters view.
                 <InView key={id1} threshold="0.3">
                 {({ inView, ref, entry }) => (
                 <Card key={id2} ref={ref} className={BlogStyle.MainCard}>
                     <CardHeader title={<h1>{title}</h1>}>
-                    {inView && props.setTitle(title)}
+                    { // if inview is true (card is atleast 35% in view) call setTitle with this title
+                    inView && props.setTitle(title)}
                     </CardHeader>
                     <CardContent id={title} children={
+                        // set all content as children on the card
                         <>
                             {documentToReactComponents(data, options)}
                             <p>Author: {author}</p>
@@ -86,33 +94,28 @@ function CreateBlogArray(props) {
 
         ))
         
-        if (firstStart === true) {
-            return (
-                <>
-                    {blogArrayTemp}
-                </>
-            )
-        }
-    }
-
-    if (props.selected === true) {
+    // conditional rendering.
+    // if firststart is true display the temparray as blogarray is empty
+    // if selected is true display the temp array aswell
+    if (firstStart === true || props.selected === true) {
         return (
             <>
-                {blogArrayTemp}
+            {blogArrayTemp}
             </>
         )
-    }
+    }}
 
+    // if nothing specific is selected show the regular array with footer
     if (props.selected === false && blogArray) {
-
         return (
             <>
-                {blogArray}
-                {!props.contentMsg ? <Footer></Footer> : <Footer contentMsg={props.contentMsg}></Footer>}
+            {blogArray}
+            {!props.contentMsg ? <Footer></Footer> : <Footer contentMsg={props.contentMsg}></Footer>}
             </>
         )
     }
 
+    // if nothing else. Return error
     else {
         return (
             <h3>Nothing found</h3>
