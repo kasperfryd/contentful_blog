@@ -16,4 +16,4 @@
     * `npm start`
 
 ### Preview ###
-[tomgrooves.github.io/contentful_blog](https://www.tomgrooves.github.io/contentful_blog "Link to Blog")
+[https://www.tomgrooves.github.io/contentful_blog](https://www.tomgrooves.github.io/contentful_blog "Link to Blog")
