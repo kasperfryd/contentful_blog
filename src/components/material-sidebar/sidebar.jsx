@@ -142,7 +142,7 @@ export default function PersistentDrawerLeft(props) {
 
         <Divider />
             <ListItem key={"Latest_Posts"}>
-              <ListItemIcon><AnnouncementIcon htmlColor="rgb(244,67,54)"	 color="primary" /></ListItemIcon>
+              <ListItemIcon><AnnouncementIcon color="primary" /></ListItemIcon>
               <ListItemText primary={"Latest Posts"} />
             </ListItem>
 

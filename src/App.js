@@ -46,7 +46,7 @@ function App() {
   // create fetch with contentful client. 
   // if selected is present, only fetch the selected value
   // else fetch 5 results with skip as a parameter
-  const fetchContent = async (id, client, skipCount, selected, content) => {  
+  const fetchContent = async (id, client, skipCount, selected) => {  
     
     if (selected){
       client.getEntries({
@@ -123,7 +123,9 @@ function App() {
   if (apiData && topData) {
       if (apiData.items.length === 0){
         if (!contentMsg){
+          setTimeout(() => {
             setContentMsg(<IconButton children={<ArrowUpwardIcon />} onClick={() => goBacktoTop()}></IconButton>)
+          }, 5000);
         }
       }
       // return main content (all blogs 5 at a time, and a sidebar)

@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Dialog, ListItemText, ListItem, List, Divider, AppBar, Toolbar, Typography, Slide, IconButton, ListItemIcon } from '@material-ui/core/';
+import { Dialog, ListItemText, ListItem, List, Divider, AppBar, Toolbar, Typography, Slide, IconButton, ListItemIcon, ListItemAvatar } from '@material-ui/core/';
 import InfoIcon from '@material-ui/icons/Info';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -64,6 +64,7 @@ export default function FullScreenDialog(props) {
             <>
               <ListItem key={item.fields.title} button>
                 <ListItemText primary={item.fields.title} secondary={item.fields.author} onClick={() => { handleClose(); props.showSelected(item.fields.title); props.close() }} />
+                <ListItemAvatar children={<i>{item.fields.date}</i>}></ListItemAvatar>
               </ListItem>
               <Divider />
             </>

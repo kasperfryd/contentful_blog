@@ -1,6 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { ThemeProvider } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 
 // Material ui style for spinner
@@ -13,6 +15,16 @@ const useStyles = makeStyles(theme => ({
     },
   },
 }));
+
+// material ui theme
+const mainTheme = createMuiTheme({
+  palette: {
+    primary: red,
+    secondary: {
+      main: '#ffffff',
+    },
+  }
+});
 
 export default function CircularDeterminate(props) {
   // set styles and state for progress
@@ -35,9 +47,11 @@ export default function CircularDeterminate(props) {
   // return material ui spinner determinate with value progress
   return (
     <>
+    <ThemeProvider theme={mainTheme}>
     <div className={classes.root}>
       <CircularProgress color='primary' variant="determinate" value={progress} />
     </div>
+    </ThemeProvider>
     </>
   );
 }
