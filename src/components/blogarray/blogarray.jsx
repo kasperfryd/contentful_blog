@@ -9,7 +9,6 @@ import {Box} from '@material-ui/core';
 import Spinner from '../material-spinner/spinner';
 
 
-
 function CreateBlogArray(props) {
 
     // set needed states
@@ -107,10 +106,7 @@ function CreateBlogArray(props) {
         )
         }
         else{
-           let doneLoading = false;
-           let timer = setTimeout(() => {
-                doneLoading = true;
-            }, 4000);
+
             return (
                 <Box display="flex" height="100vh" justifyContent="center" alignItems="center" children={<Typography> Can not find blog post.. Try again</Typography>}></Box>
                 )
