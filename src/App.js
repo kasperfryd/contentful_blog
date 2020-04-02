@@ -123,9 +123,7 @@ function App() {
   if (apiData && topData) {
       if (apiData.items.length === 0){
         if (!contentMsg){
-          setTimeout(() => {
             setContentMsg(<IconButton children={<ArrowUpwardIcon />} onClick={() => goBacktoTop()}></IconButton>)
-          }, 5000);
         }
       }
       // return main content (all blogs 5 at a time, and a sidebar)
