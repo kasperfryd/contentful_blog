@@ -9,6 +9,7 @@ import {Box} from '@material-ui/core';
 import Spinner from '../material-spinner/spinner';
 
 
+
 function CreateBlogArray(props) {
 
     // set needed states
@@ -73,7 +74,7 @@ function CreateBlogArray(props) {
             // push the card into the temporary array
             blogArrayTemp.push(
                 //create inview ref which wraps the object and sends a callback when card enters view.
-                <InView key={id1} threshold="0.20" rootMargin="50px 0px -150px 0px">
+                <InView key={id1} threshold="0" rootMargin="-50% 0px -50% 0px">
                 {({ inView, ref, entry }) => (
                 <Card key={id2} ref={ref} className={BlogStyle.MainCard}>
                     <CardHeader title={<h1>{title}</h1>} subheader={<p>Author: {author} | Posted on: {date}</p>}>

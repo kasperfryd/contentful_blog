@@ -115,6 +115,10 @@ function App() {
 
   // function to set current "inView" title
   const setTitle = (title) => {
+    if (window.innerWidth <= "600"){
+      if (title.length > 17) 
+          {title = title.substr(0, 17) + ".."}
+    }
     setTimeout(() => {
       setCurrentTitle(title);
     }, 500);
