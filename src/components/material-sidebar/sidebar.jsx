@@ -150,15 +150,16 @@ export default function PersistentDrawerLeft(props) {
       
       <Drawer className={classes.drawer} variant="persistent" anchor="left" open={open} classes={{paper: classes.drawerPaper}}>
         
+      <List>
+        
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
         
-
       <ListItem>
-      <ListItemIcon className={classes.pointer} button onClick={() => search()} ><SearchIcon htmlColor="rgb(244,67,54)" color="primary" /></ListItemIcon>
+      <ListItemIcon className={classes.pointer} onClick={() => search()} ><SearchIcon color="primary" /></ListItemIcon>
         <form onSubmit={(e) => {e.preventDefault()}} className={classes.root} noValidate autoComplete="off" value={inputValue} onChange={handleInputChange} >
             <TextField id="standard-basic" label="Search" />
           </form>
@@ -166,9 +167,8 @@ export default function PersistentDrawerLeft(props) {
 
       <Divider/>
 
-      <List>
         <ListItem button component={"a"} onClick={handleDrawerClose} href="/contentful_blog" key={"Home"}>
-              <ListItemIcon ><HomeIcon htmlColor="rgb(244,67,54)"	 color="primary" /></ListItemIcon>
+              <ListItemIcon ><HomeIcon color="primary" /></ListItemIcon>
               <ListItemText primary={"Home"} />
         </ListItem>
 
@@ -185,8 +185,9 @@ export default function PersistentDrawerLeft(props) {
             )}
         <Divider />
         <FullScreenDialog close={handleDrawerClose} showSelected={props.showSelected} getAllData = {props.getAllData} array={props.allArray} />
+        <Divider />
         <ListItem button component={"a"} href="https://be.contentful.com/login" key={"New_Post"}>
-          <ListItemIcon ><AddCommentIcon htmlColor="rgb(244,67,54)"	 color="primary" /></ListItemIcon>
+          <ListItemIcon ><AddCommentIcon color="primary" /></ListItemIcon>
           <ListItemText primary={"New Post"} />
         </ListItem>      
       </List>
