@@ -106,10 +106,10 @@ export default function PersistentDrawerLeft(props) {
   const search = () => {
     if (inputValue){
     console.log(inputValue);
-    let form = document.getElementById('standard-basic');
-    form.value = "";
     props.showSelected(inputValue);
     setOpen(false);
+    let form = document.getElementById('outlined-basic');
+    form.value = "";
     }
   }
 
