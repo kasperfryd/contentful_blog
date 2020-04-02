@@ -41,7 +41,7 @@ function App() {
   useEffect(() => {
     getLatestTopPosts(id, client);
     fetchContent(id, client, arrCount);
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
     
   // create fetch with contentful client. 
   // if selected is present, only fetch the selected value
@@ -115,7 +115,9 @@ function App() {
 
   // function to set current "inView" title
   const setTitle = (title) => {
-    setCurrentTitle(title);
+    setTimeout(() => {
+      setCurrentTitle(title);
+    }, 500);
   }
   
   // if apidata is present, and apidata is 0, and contentMsg is not set, (no more new content)

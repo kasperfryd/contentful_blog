@@ -71,28 +71,25 @@ function CreateBlogArray(props) {
             // push the card into the temporary array
             blogArrayTemp.push(
                 //create inview ref which wraps the object and sends a callback when card enters view.
-                <InView key={id1} threshold="0.3">
+                <InView key={id1} threshold="0.20" rootMargin="50px 0px -150px 0px">
                 {({ inView, ref, entry }) => (
                 <Card key={id2} ref={ref} className={BlogStyle.MainCard}>
-                    <CardHeader title={<h1>{title}</h1>}>
-                    { // if inview is true (card is atleast 35% in view) call setTitle with this title
+                    <CardHeader title={<h1>{title}</h1>} subheader={<p>Author: {author} | Posted on: {date}</p>}>
+                    { // if inview is true (card is atleast 40% in view) call setTitle with this title
                     inView && props.setTitle(title)}
                     </CardHeader>
                     <CardContent id={title} children={
                         // set all content as children on the card
                         <>
                             {documentToReactComponents(data, options)}
-                            <p>Author: {author}</p>
-                            <p>Posted on: {date}</p>
                         </>
                     }>
                     </CardContent>
                 </Card>)}
                 </InView>
             )
-        }
-
-        ))
+            return null;
+        }))
         
     // conditional rendering.
     // if firststart is true display the temparray as blogarray is empty
