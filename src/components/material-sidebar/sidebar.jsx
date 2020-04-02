@@ -2,12 +2,13 @@ import React, {useState} from 'react';
 import clsx from 'clsx';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText} from '@material-ui/core/';
+import {Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText, TextField} from '@material-ui/core/';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import HomeIcon from '@material-ui/icons/Home'
 import AnnouncementIcon from '@material-ui/icons/Announcement';
+import SearchIcon from '@material-ui/icons/Search';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import FullScreenDialog from '../material-dialog/dialog';
 import red from '@material-ui/core/colors/red';
@@ -87,6 +88,10 @@ const useStyles = makeStyles(theme => ({
   },
   blogPosts:{
       marginLeft: "8px"
+  },
+
+  pointer:{
+    cursor: "pointer",
   }
 }));
 
@@ -97,6 +102,17 @@ export default function PersistentDrawerLeft(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const [inputValue, setInputValue] = useState()
+
+  const search = () => {
+    if (inputValue){
+    console.log(inputValue);
+    let form = document.getElementById('standard-basic');
+    form.value = "";
+    props.showSelected(inputValue);
+    setOpen(false);
+    }
+  }
 
   // function to set open to true
   const handleDrawerOpen = () => {
@@ -107,6 +123,11 @@ export default function PersistentDrawerLeft(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  // function to set input text for search
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value)
+  }
 
   return (
   <ThemeProvider theme={mainTheme}>
@@ -119,13 +140,14 @@ export default function PersistentDrawerLeft(props) {
             <MenuIcon />
           </IconButton>
 
-          <Typography className={!open ? Styles.nowReading: Styles.hidden}>
+          <Typography style={{ flex: 1 }} className={!open ? Styles.nowReading: Styles.hidden}>
             {props.currentTitle}
           </Typography>
-   
-        <img src={banner} alt="logo" className={Styles.logo} />
+  
+        <img src={banner} alt="logo" className={Styles.logo}  />
         </Toolbar>
       </AppBar>
+      
       <Drawer className={classes.drawer} variant="persistent" anchor="left" open={open} classes={{paper: classes.drawerPaper}}>
         
         <div className={classes.drawerHeader}>
@@ -134,6 +156,16 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
         </div>
         
+
+      <ListItem>
+      <ListItemIcon className={classes.pointer} button onClick={() => search()} ><SearchIcon htmlColor="rgb(244,67,54)" color="primary" /></ListItemIcon>
+        <form onSubmit={(e) => {e.preventDefault()}} className={classes.root} noValidate autoComplete="off" value={inputValue} onChange={handleInputChange} >
+            <TextField id="standard-basic" label="Search" />
+          </form>
+      </ListItem>
+
+      <Divider/>
+
       <List>
         <ListItem button component={"a"} onClick={handleDrawerClose} href="/contentful_blog" key={"Home"}>
               <ListItemIcon ><HomeIcon htmlColor="rgb(244,67,54)"	 color="primary" /></ListItemIcon>
@@ -156,8 +188,7 @@ export default function PersistentDrawerLeft(props) {
         <ListItem button component={"a"} href="https://be.contentful.com/login" key={"New_Post"}>
           <ListItemIcon ><AddCommentIcon htmlColor="rgb(244,67,54)"	 color="primary" /></ListItemIcon>
           <ListItemText primary={"New Post"} />
-        </ListItem>
-
+        </ListItem>      
       </List>
       </Drawer>
     </div>

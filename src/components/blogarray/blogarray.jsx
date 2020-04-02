@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { Card, CardContent, CardHeader } from '@material-ui/core';
+import { Card, CardContent, CardHeader, Typography } from '@material-ui/core';
 import Footer from '../footer/footer';
 import BlogStyle from './blog.module.scss';
 import { InView } from 'react-intersection-observer'
+import {Box} from '@material-ui/core';
+import Spinner from '../material-spinner/spinner';
+
 
 
 function CreateBlogArray(props) {
@@ -95,11 +98,23 @@ function CreateBlogArray(props) {
     // if firststart is true display the temparray as blogarray is empty
     // if selected is true display the temp array aswell
     if (firstStart === true || props.selected === true) {
+
+        if (blogArrayTemp.length > 0){
         return (
             <>
             {blogArrayTemp}
             </>
         )
+        }
+        else{
+           let doneLoading = false;
+           let timer = setTimeout(() => {
+                doneLoading = true;
+            }, 4000);
+            return (
+                <Box display="flex" height="100vh" justifyContent="center" alignItems="center" children={<Typography> Can not find blog post.. Try again</Typography>}></Box>
+                )
+        }
     }}
 
     // if nothing specific is selected show the regular array with footer
@@ -115,8 +130,8 @@ function CreateBlogArray(props) {
     // if nothing else. Return error
     else {
         return (
-            <h3>Nothing found</h3>
-        )
+            <Box display="flex" height="100vh" justifyContent="center" alignItems="center" children={<Spinner children={<div>Loading..</div>}></Spinner>}></Box>
+            )
     }
 }
 

@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import {Box} from '@material-ui/core';
+import Spinner from './components/material-spinner/spinner';
 import CreateBlogArray from './components/blogarray/blogarray';
 import SideBar from './components/material-sidebar/sidebar';
-import Spinner from './components/material-spinner/spinner';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import IconButton from '@material-ui/core/IconButton';
 

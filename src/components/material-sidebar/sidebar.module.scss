@@ -10,12 +10,11 @@
 }
 
 .logo {
-    width: 7rem;
-    height: auto;
-    position: fixed;
-    right: 0;
-    margin-right: 5%;
-    align-self: center;
+  width: auto;
+  height: auto;
+  margin-right: 5%;
+  align-self: center;
+  position: relative;
   }
 
 @keyframes fade {
