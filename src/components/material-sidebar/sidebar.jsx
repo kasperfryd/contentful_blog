@@ -89,7 +89,6 @@ const useStyles = makeStyles(theme => ({
   blogPosts:{
       marginLeft: "8px"
   },
-
   pointer:{
     cursor: "pointer",
   }
@@ -157,13 +156,6 @@ export default function PersistentDrawerLeft(props) {
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
-        
-      <ListItem>
-      <ListItemIcon className={classes.pointer} onClick={() => search()} ><SearchIcon color="primary" /></ListItemIcon>
-        <form onSubmit={(e) => {e.preventDefault()}} className={classes.root} noValidate autoComplete="off" value={inputValue} onChange={handleInputChange} >
-            <TextField id="standard-basic" label="Search" />
-          </form>
-      </ListItem>
 
       <Divider/>
 
@@ -189,7 +181,15 @@ export default function PersistentDrawerLeft(props) {
         <ListItem button component={"a"} href="https://be.contentful.com/login" key={"New_Post"}>
           <ListItemIcon ><AddCommentIcon color="primary" /></ListItemIcon>
           <ListItemText primary={"New Post"} />
-        </ListItem>      
+        </ListItem>     
+
+        <Divider/>
+        <ListItem>
+      <ListItemIcon className={classes.pointer} onClick={() => search()} ><SearchIcon color="primary" /></ListItemIcon>
+        <form  onSubmit={(e) => {e.preventDefault()}} className={classes.root} noValidate autoComplete="off" value={inputValue} onChange={handleInputChange} >
+            <TextField id="outlined-basic" border="none" size="small" variant="outlined" label="Search" />
+          </form>
+      </ListItem> 
       </List>
       </Drawer>
     </div>
