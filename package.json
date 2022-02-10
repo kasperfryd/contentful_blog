@@ -12,7 +12,7 @@
     "@testing-library/user-event": "^7.2.1",
     "contentful": "^7.14.0",
     "material-icons": "^0.3.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-image-appear": "^1.2.23",
